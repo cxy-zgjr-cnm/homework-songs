@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>singsong</title>
+	<link rel="stylesheet" type="text/css" href="songs.css">
+	<script src="songs.js"></script>
+</head>
+<body>
+	<div id="header">
+		<ul id="hul">
+			<li><img id="icon" src="imgs/音符标.jpg" ></li>
+			<li class="text" id="start"><a href="">首页</a></li>
+			<li class="text"><a href="">歌手</a></li>
+			<li class="text"><a href="">曲库</a></li>
+			<li class="text"><a href="">收藏</a></li>
+			<li class="text"><a href="">曲风</a></li>
+			<li class="text" id="date">日期</li>
+			<li class="text" id="sub">登录</li>
+			<li class="text">注册</li>
+		</ul>
+	</div>
+
+
+	<div id="goon">
+		用户名:<input type="text" class="put" id="inname" value=""/>
+		</br>
+		密码:<input type="password" class="put" id="inword" value=""/>
+		</br>
+		<button type="submit" id="submit">立即登录</button>
+	</div>
+
+
+
+	<div class="box" id="box">
+		<div class="inner" id="inner">
+			<div class="into"><img src="imgs/song_06.jpg" alt=""></div>
+			<div class="into"><img src="imgs/song_01.jpg" alt=""></div>
+			<div class="into"><img src="imgs/song_02.jpg" height="1404" width="1404" alt=""></div>
+			<div class="into"><img src="imgs/song_03.jpg" alt=""></div>
+			<div class="into"><img src="imgs/song_04.jpg" alt=""></div>
+			<div class="into"><img src="imgs/song_05.jpg" alt=""></div>
+			<div class="into"><img src="imgs/song_06.jpg" alt=""></div>
+			<div class="into"><img src="imgs/song_01.jpg" alt=""></div>
+		</div>
+		<span id="left"><</span>
+		<span id="right">></span>
+		<ul class="nav" id="nav">
+			<li class="active"></li>
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+		</ul>
+	</div>
+
+
+	<div class="imgdiv" id="one">
+		<p>first</p>
+		<ul class="imgul">
+			<li><a href="http://music.163.com/song?id=445867332&userid=3299456055"><img src="imgs/s1.jpg" height="200" width="200"></a></li>
+			<li><a href="http://music.163.com/song?id=424474255&userid=3299456055"><img src="imgs/s2.jpg" height="200" width="200"></a></li>
+			<li><a href="http://music.163.com/song?id=34341360&userid=3299456055"><img src="imgs/s3.jpg" height="200" width="200"></a></li>
+			<li><a href="http://music.163.com/song?id=472361236&userid=3299456055"><img src="imgs/s4.jpg" height="200" width="200"></a></li>
+			<li><a href="http://music.163.com/song?id=1333323436&userid=3299456055"><img src="imgs/s5.jpg" height="200" width="200"></a></li>
+		</ul>
+	</div>
+	<div class="imgdiv" id="two">
+		<p>second</p>
+		<ul class="imgul">
+			<li><a href="http://music.163.com/song?id=439037325&userid=3299456055"><img src="imgs/s6.jpg" height="200" width="200"></a></li>
+			<li><a href="http://music.163.com/song?id=25892489&userid=3299456055"><img src="imgs/s7.jpg" height="200" width="200"></a></li>
+			<li><a href="http://music.163.com/song?id=463799640&userid=3299456055"><img src="imgs/s8.jpg" height="200" width="200"></a></li>
+			<li><a href="http://music.163.com/song?id=5214369&userid=3299456055"><img src="imgs/s9.jpg" height="200" width="200"></a></li>
+			<li><a href="http://music.163.com/song?id=31010566&userid=3299456055"><img src="imgs/s10.jpg" height="200" width="200"></a></li>
+		</ul>
+	</div>
+	<div class="imgdiv" id="three">
+		<p>third</p>
+		<ul class="imgul">
+			<li><a href="http://music.163.com/song?id=22428792&userid=3299456055"><img src="imgs/s11.jpg" height="200" width="200"></a></li>
+			<li><a href="http://music.163.com/song?id=445867407&userid=3299456055"><img src="imgs/s12.jpg" height="200" width="200"></a></li>
+			<li><a href="http://music.163.com/song?id=556995768&userid=3299456055"><img src="imgs/s13.jpg" height="200" width="200"></a></li>
+			<li><a href="http://music.163.com/song?id=28059105&userid=3299456055"><img src="imgs/s14.jpg" height="200" width="200"></a></li>
+			<li><a href="http://music.163.com/song?id=3377689&userid=3299456055"><img src="imgs/s15.jpg" height="200" width="200"></a></li>
+		</ul>
+	</div>
+
+
+
+
+</body>	
+<script type="text/javascript">
+//轮播图
+	var box = document.getElementById("box");
+	var nalist = document.getElementById(
+		"nav").children;
+	var inner = document.getElementById("inner");
+	var left = document.getElementById("left");
+	var right = document.getElementById("right");
+	var index = 1;
+	var timer;
+	var isMoving = false;
+	box.onmouseover = function(){
+		animate(left,{opacity:50})
+		animate(right,{opacity:50})
+		clearInterval(timer)
+	}
+	box.onmouseout = function(){
+		animate(left,{opacity:0})
+		animate(right,{opacity:0})
+		timer = setInterval(next, 3000);
+		}
+	right.onclick = next;
+	left.onclick = prev;
+	for( var i=0; i<nalist.length; i++ ){
+			nalist[i].index = i;
+			nalist[i].onclick = function(){
+				index = this.index+1;
+				navmove();
+				songs(inner,{left:-1200*index});
+			}
+		}
+		function next(){
+			if(isMoving){
+				return;
+			}
+			isMoving = true;
+			index++;
+			navmove();
+			animate(inner,{left:-1200*index},function(){
+				if(index==6){
+					inner.style.left = '-1200px';
+					index = 1;
+				}
+				isMoving = false;
+			});
+		}
+		function prev(){
+			if(isMoving){
+				return;
+			}
+			isMoving = true;
+			index--;
+			navmove();
+			songs(inner,{left:-1200*index},function(){
+				if(index==0){
+					inner.style.left = '-6000px';
+					index = 5;
+				}
+				isMoving = false;
+			});
+		}
+		function navmove(){
+			for( var i=0; i<nalist.length; i++ ){
+				nalist[i].className = "";
+			}
+			if(index >5 ){
+				nalist[0].className = "active";
+			}else if(index<=0){
+				nalist[4].className = "active";
+			}else {
+				nalist[index-1].className = "active";
+			}
+		}
+		timer = setInterval(next, 3000);
+
+//登陆界面
+		var goon = document.getElementById("goon");
+		var sub = document.getElementById("sub");
+		var submit = document.getElementById("submit");
+		var inname = document.getElementById("inname");
+		var inword = document.getElementById("inword");
+
+		var vname = inname.value;
+		var vword = inword.value;
+		goon.style.display = "none";
+		sub.onclick = function(){
+			goon.style.display = "block";
+		}
+		submit.onclick = function(){
+			goon.style.display = "none"
+		}
+
+
+
+
+//移动下坠图标(以后实现)
+	// var start = document.getElementById("start");
+	// start.onclick = function(){
+
+	// }
+	 
+
+//显示日期
+	var date1 = document.getElementById("date");
+	var dates = new Date();
+	var month = dates.getMonth()+1;
+	var year = dates.getFullYear();
+	var day = dates.getDate();
+	date1.onclick = function(){
+		alert("今天是"+year+"年"+month+ "月"+day+"日");
+	}
+
+
+</script>
+
+</html>
